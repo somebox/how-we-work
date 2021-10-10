@@ -2,7 +2,8 @@
 class Person {
   DisplayLocation loc;
   int skill_level = 0;       // 0-10, with 0 being unable to do tasks, 1=junior, 3-5=typical, 6=senior, 8=expert, 10=principal
-  int _status = 0;           // 0 = idle, 1=active, 2=blocked
+  int _status = 0;           // 0 = idle, 1=active, 2=blocked'
+  int _blocked_ticks = 0;
   Activity current_activity;
     
   String title(){
@@ -21,7 +22,12 @@ class Person {
   }
   
   void work(){
-    if (current_activity != null){
+    if (is_blocked()){
+      _blocked_ticks++;
+      return; 
+    }
+    
+    if (current_activity != null){      
       work_on(current_activity);
     }
   }
@@ -29,8 +35,13 @@ class Person {
   boolean is_idle(){
     return (_status == 0);
   }
+  void set_active(){ _status = 1; }
   boolean is_active(){
     return (_status == 1);
+  }
+  void set_blocked(){
+    _blocked_ticks = 0;
+    _status = 2; 
   }
   boolean is_blocked(){
     return (_status == 2);
@@ -51,7 +62,7 @@ class Person {
     circle(loc.x, loc.y, loc.size); 
     if (current_activity != null){
       fill(#ffffff);
-      text(current_activity.id, loc.x, loc.y+loc.size);
+      text(current_activity._total_cost, loc.x, loc.y+loc.size);
     }
   }
 }

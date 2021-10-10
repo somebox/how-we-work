@@ -31,33 +31,39 @@ class Backlog {
   }
   
   void draw_column(String name, int column_num, color c, ArrayList<Activity> list){
-    int i=0;
     int x = loc.x + (loc.size+spacing)*column_num;
     int y = loc.y;
+    int max_col_items = 6;  // max vertical items
     
     // column name
     fill(#ffffff);
     text(name, x, y-spacing*2);
     
     // draw activity cards
-    for (Activity a: list){
+    for (int i=0; i < list.size(); i++){
+      Activity a = list.get(i);
       // card
       noStroke();
       fill(c);
-      a.loc = new DisplayLocation(x, y+i*(loc.size+spacing), loc.size);
-      rect(a.loc.x, a.loc.y, loc.size, loc.size);
+      
+      int xoffset = (loc.size+spacing)*floor(i/max_col_items);
+      int yoffset = (i % max_col_items)*(loc.size+spacing);
+      
+      a.loc = new DisplayLocation(x + xoffset, y + yoffset, loc.size);
+      rect(a.loc.x, a.loc.y, a.loc.size, a.loc.size);
 
       // label
-      textSize(12);
+      textSize(loc.size/2.5);
       fill(#000000);
-      text(str(a.estimated_cost), x+2, y+i*(loc.size+spacing)+10);
+      text(str(a.estimated_cost), a.loc.x+2, a.loc.y+loc.size/3);
       
       // show progress circle
-      fill(#44aa00);
-      Progress p = new Progress(new DisplayLocation(x+15, y+i*(loc.size+spacing)+ceil(loc.size/1.7), 15));
-      p.percent = a.percent_done();
-      p.draw();
-      i++;
+      if (a.is_started()){
+        fill(#44aa00);
+        Progress p = new Progress(new DisplayLocation(a.loc.x+loc.size/2, a.loc.y+ceil(loc.size/1.7), loc.size/2));
+        p.percent = a.percent_done();
+        p.draw();
+      }
     }
   }
 }
@@ -79,8 +85,8 @@ class Sprint {
     DisplayLocation b_loc = backlog.loc;
     list.addAll(backlog.find_items(3));
     backlog.draw_column("ToDo",  0, #999999, backlog.find_items(1));
-    backlog.draw_column("Doing", 1, #e6de72, list);
-    backlog.draw_column("Done",  2, #88ff88, backlog.find_items(4));
+    backlog.draw_column("Doing", 2, #e6de72, list);
+    backlog.draw_column("Done",  4, #88ff88, backlog.find_items(4));
     
     // draw connections
     for (Person p: team.members){
