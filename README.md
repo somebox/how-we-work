@@ -2,6 +2,8 @@
 
 A simulation that aims to show visually how software teams work, and the flow of value delivered.
 
+<img width="523" alt="Screenshot 2021-10-13 at 14 05 35" src="https://user-images.githubusercontent.com/7750/137129098-7e1c99ff-df04-42bc-acb7-46b3f5cb1c5d.png">
+
 These are meant to be short animations, included in an overall talk about how we work.
 
 ## Examined are some scenarios:
