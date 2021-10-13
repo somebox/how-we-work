@@ -1,10 +1,10 @@
 # how-we-work
 
-A simulation that aims to show visually how software teams work, and the flow of value delivered.
+A simulation that aims to show visually how software teams, autonomously and as part of a larger org, and the effects of planning, legacy, knowledge sharing, and communication can affect delivery.
 
 <img width="523" alt="Screenshot 2021-10-13 at 14 05 35" src="https://user-images.githubusercontent.com/7750/137129098-7e1c99ff-df04-42bc-acb7-46b3f5cb1c5d.png">
 
-These are meant to be short animations, included in an overall talk about how we work.
+This project was created to create some short animations, to be included in an overall talk about how we work.
 
 ## Dev Environment
 
