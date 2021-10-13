@@ -6,6 +6,11 @@ A simulation that aims to show visually how software teams work, and the flow of
 
 These are meant to be short animations, included in an overall talk about how we work.
 
+## Dev Environment
+
+All code is in [Processing](https://processing.org) v4 beta, which can output video files from the animations directly when needed.
+To run the project, `git clone`, and open the file `team_simulation.pde` in the editor environment. Processing is basically Java, but using supplied patterns like graphics primitives, setup/draw loop, and helpful structures like ArrayList, 1st-class color values, Vectors, etc).
+
 ## Examined are some scenarios:
 
 ### A single team
