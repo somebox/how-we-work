@@ -1,4 +1,12 @@
 static int _max_id = 0;
+static abstract class State {
+  static final int NOT_READY = 0;
+  static final int READY = 1;
+  static final int STARTED = 2;
+  static final int PAUSED = 3;
+  static final int DONE = 4;
+}
+
 
 class Activity {
   DisplayLocation loc;
@@ -8,9 +16,10 @@ class Activity {
   int _state;            // internal state tracking
   int id;
   Person _owner;
+  
 
   Activity(){
-    _state = 0;
+    _state = State.NOT_READY;
     _total_cost = 0;
     estimated_cost = 0;
     age = 0;    
@@ -21,17 +30,21 @@ class Activity {
     return ("activity "+ id);
   }
   
-  void specify(){  _state = 1;  }
-  boolean is_ready(){  return(_state == 1);  } 
+  String summary(){
+    return (name() + " cost:" + _total_cost + " est:" + estimated_cost + " time to deliver:" + age);
+  }
   
-  void start(){  _state = 2; }
-  boolean is_started(){  return (_state == 2);  }
+  void specify(){  _state = State.READY;  }
+  boolean is_ready(){  return(_state == State.READY);  } 
   
-  void pause(){  _state = 3;  }
-  boolean is_paused(){   return (_state == 3);  }
+  void start(){  _state = State.STARTED; }
+  boolean is_started(){  return (_state == State.STARTED);  }
   
-  void finish(){  _state = 4;  }
-  boolean is_finished(){ return (_state == 4);  }
+  void pause(){  _state = State.PAUSED;  }
+  boolean is_paused(){   return (_state == State.PAUSED);  }
+  
+  void finish(){  _state = State.DONE;  }
+  boolean is_finished(){ return (_state == State.DONE);  }
   
   void tick(){
      age++; 

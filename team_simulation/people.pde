@@ -17,7 +17,7 @@ class Person {
     if (activity.is_finished()){
       _status = 0;
       current_activity = null;
-      println(title() + " finished "+activity.name());
+      println(title() + " finished "+activity.summary());
     }
   }
   

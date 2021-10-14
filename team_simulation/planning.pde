@@ -1,9 +1,18 @@
 class Backlog {
   ArrayList<Activity> items = new ArrayList<Activity>();
   DisplayLocation loc;
-  int spacing = 7;
+  int spacing;
+  int age;
   
   Backlog(){
+    age = 0;
+    spacing = 7;
+  }
+  
+  void tick(){
+    for (Activity a: items){
+      a.tick();
+    }
   }
   
   Activity pull(){
@@ -14,6 +23,22 @@ class Backlog {
       }
     }
     return null;    
+  }
+  
+  int estimated_cost(){
+     int total = 0;
+     for (Activity item: items){
+       total += item.estimated_cost;
+     }
+     return total;
+  }
+  
+  int velocity(){
+     int total = 0;
+     for (Activity item: done_items()){
+       total += item.estimated_cost;
+     }
+     return total;
   }
   
   void add(Activity a){
@@ -30,6 +55,25 @@ class Backlog {
      return list;
   }
   
+  int size(){
+    return items.size();
+  }
+    
+  ArrayList<Activity> todo_items(){
+    return find_items(State.READY);
+  }
+
+  ArrayList<Activity> doing_items(){
+    ArrayList<Activity> list = new ArrayList<Activity>();
+    list = find_items(State.STARTED);
+    list.addAll(find_items(State.PAUSED));
+    return list;
+  }
+  
+  ArrayList<Activity> done_items(){
+    return find_items(State.DONE);
+  }
+
   void draw_column(String name, int column_num, color c, ArrayList<Activity> list){
     int x = loc.x + (loc.size+spacing)*column_num;
     int y = loc.y;
@@ -72,21 +116,21 @@ class Backlog {
 class Sprint {
   Backlog backlog;
   Team team;
+  int sprint_number;
+  int age;
   
   Sprint(Team t){
     backlog = new Backlog();
     team = t;
+    sprint_number = 1;
+    age = 0;
   }
   
   void draw(){
     // draw sprint board
-    ArrayList<Activity> list = new ArrayList<Activity>();
-    list = backlog.find_items(2);
-    DisplayLocation b_loc = backlog.loc;
-    list.addAll(backlog.find_items(3));
-    backlog.draw_column("ToDo",  0, #999999, backlog.find_items(1));
-    backlog.draw_column("Doing", 2, #e6de72, list);
-    backlog.draw_column("Done",  4, #88ff88, backlog.find_items(4));
+    backlog.draw_column("ToDo",  0, #999999, backlog.todo_items());
+    backlog.draw_column("Doing", 2, #e6de72, backlog.doing_items());
+    backlog.draw_column("Done",  4, #88ff88, backlog.done_items());
     
     // draw connections
     for (Person p: team.members){
@@ -98,7 +142,23 @@ class Sprint {
     }
   }
   
+  boolean is_finished(){
+     return (backlog.todo_items().size() == 0) && (backlog.doing_items().size() == 0); 
+  }
+  
+  void print_summary(){
+    println("Sprint "+sprint_number);
+    println("  total time: "+age+" ticks");
+    println("  tasks done: "+backlog.done_items().size()+"/"+backlog.size());
+    println("    estimate: "+backlog.estimated_cost()+ " story points");
+    // println("    velocity: "+backlog.velocity()+ " story points");
+  }
+  
   void tick(){
+    // update tasks
+    backlog.tick();
+    age++;
+
     for (Person p: team.members){
       if (p.is_idle()){  // assign a new task
         Activity item = backlog.pull();

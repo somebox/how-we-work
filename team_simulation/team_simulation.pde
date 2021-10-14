@@ -9,8 +9,8 @@ int ticks=0;
 
 void tick(int t){
   if (t % 30 == 0){
-    ticks++;
     sprint.tick();
+    
     // unblock people
     for (Person p: team.members){
       if (p.is_blocked()){
@@ -19,6 +19,7 @@ void tick(int t){
         }
       }
     }
+    
     // randomly block someone
     if (random(10) > 8) {
       Person p = team.members.get(ceil(random(team.members.size()-1)));
@@ -26,6 +27,8 @@ void tick(int t){
         p.set_blocked();
       }
     }
+    
+    ticks++;
   }
 }
 
@@ -45,15 +48,19 @@ void setup(){
     team.add_person(p);
   }
   for (int i=0; i < backlog_size; i++){
-    Task task = new Task(story_points(ceil(random(6))), 1);
+    Task task = new Task(story_points(ceil(random(5))), 1);
     task.specify();
     sprint.backlog.add(task);
   }
 }
 
-void draw(){
-  tick(t++);
+void draw(){  
   background(0);
+  tick(t++);
   team.draw(width/2+width/10, height/2, 10);
   sprint.draw();
+  if (sprint.is_finished()){
+    sprint.print_summary();
+    exit();
+  } 
 }
