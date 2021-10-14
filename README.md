@@ -21,16 +21,14 @@ To run the project, `git clone`, and open the file `team_simulation.pde` in the 
 - Show how external dependencies (on resources or changes) affect progres
 - Show how interruptions affect progress
 
-### A single team
-Looking at multiple teams
+### Multiple Teams
 - Show teams that have cycles aligned, vs independent and the impact here
 - Show overhead of comms and alignment
 - Show how outside, unplanned work can impact progress towards goals
 - show the calendar problem visually, how time fills up in "first available" fashing, why blocking time and having shared rituals help
 
-### A single team
-Looking at a whole org
-- Show 10 teams in progress, separately aligning with stakeholders; vs. festival planning and reduction of meetings
+### A Whole Organization
+- Show 10 teams in progress, in different departments, separately aligning with stakeholders; vs. festival planning and reduction of meetings
 - Show the cumulative effect of legacy or changing goals on a software org, how the whole system is affected
 - Show bottlenecks that slow down everyone (ex: approvals, under-provisioned design, waiting for research, "big" company projects that interrupt)
 
@@ -67,3 +65,6 @@ Avoid the "big rewrite", look to contain and control all parts of the platform a
 ## Why Culture and Rituals Matter
 
 The transparency of the org, what a good "festival" looks like and the impact, how to move away from reporting and assigning tasks, and how autonomy and purpose drive performance. What modern Product Management techniques teach us about teamwork. How "Culture Eats Strategy for Breakfast" and how this relates to software development in a modern way (review, inner-source, standards over architecture)
+
+## Inspirations
+(books and video listed here TBD)
