@@ -2,6 +2,8 @@
 
 Team team;
 Sprint sprint;
+Position sprint_loc;
+Position team_loc;
 int team_size = 4;
 int backlog_size = 12;
 int t=0;
@@ -40,11 +42,11 @@ int story_points(int magnitude){
 void setup(){
   size(800,600);
   team = new Team();
+  team.set_position(new Position(width/2, height/3, 40));
   sprint = new Sprint(team);
-  sprint.backlog.loc = new DisplayLocation(width/10, height/4, 40);
+  sprint.set_position(new Position(width/10, height/4, 40));
   for (int i=0; i<team_size; i++){
-    Person p = new Engineer();
-    p.loc = new DisplayLocation(i*40, 0, 40);
+    Person p = new Engineer(new Position(i*(40+10), 0, 40));
     team.add_person(p);
   }
   for (int i=0; i < backlog_size; i++){
@@ -57,7 +59,7 @@ void setup(){
 void draw(){  
   background(0);
   tick(t++);
-  team.draw(width/2+width/10, height/2, 10);
+  team.draw();
   sprint.draw();
   if (sprint.is_finished()){
     sprint.print_summary();

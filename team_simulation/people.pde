@@ -1,11 +1,19 @@
 
-class Person {
-  DisplayLocation loc;
+class Person extends Sprite {
   int skill_level = 0;       // 0-10, with 0 being unable to do tasks, 1=junior, 3-5=typical, 6=senior, 8=expert, 10=principal
   int _status = 0;           // 0 = idle, 1=active, 2=blocked'
   int _blocked_ticks = 0;
   Activity current_activity;
     
+  Person(){
+    super();
+  }
+  
+  Person(Position p){
+    super();
+    set_position(p);
+  }
+  
   String title(){
     return "employee";
   }
@@ -54,40 +62,46 @@ class Person {
       default: return(#000000);
     }
   }
-  
-  void draw(int x, int y){
-    loc.x = x;
-    loc.y = y;
+
+  void draw(){
     fill(status_color());
-    circle(loc.x, loc.y, loc.size); 
+    circle(pos.x, pos.y, pos.size); 
     if (current_activity != null){
       fill(#ffffff);
-      text(current_activity._total_cost, loc.x, loc.y+loc.size);
+      text(current_activity._total_cost, pos.x, pos.y+pos.size);
     }
   }
 }
 
 class Engineer extends Person {
+  Engineer(Position p){
+    super(p);
+  }
+  
   String title() {
     return "engineer";
   }
 }
 
-class Team {
+class Team extends Sprite {
   ArrayList<Person> members = new ArrayList<Person>();
   
   Team() {
+    super();
   }
     
   void add_person(Person p){
     members.add(p);  
   }
-  
-  void draw(int x, int y, int spacing){
-    int i=0;
-    for (Person p : members){
-      p.draw(x+p.loc.size*i+spacing*i, y);
-      i++;
+    
+  void draw(){
+    int spacing=10;
+    pushMatrix();
+    translate(pos.x, pos.y);
+    for (Person p : team.members){
+      p.draw();
     }
+    popMatrix();
   }
+
 }

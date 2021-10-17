@@ -8,21 +8,23 @@ static abstract class State {
 }
 
 
-class Activity {
-  DisplayLocation loc;
+class Activity extends Sprite {
   int age;               // total number of ticks this task has been around
   int estimated_cost;   // work points expected to finish this activity
   int _total_cost;       // total effort it took to do this activity
   int _state;            // internal state tracking
+  color card_color;  
   int id;
   Person _owner;
   
 
   Activity(){
+    super();
     _state = State.NOT_READY;
     _total_cost = 0;
     estimated_cost = 0;
     age = 0;    
+    card_color = #999999;
     id = _max_id++;
   }
   
@@ -88,6 +90,30 @@ class Task extends Activity {
     complexity = points;
   }
   
+  void draw(){
+    pushMatrix();
+    
+    // card
+    noStroke();
+    fill(card_color);
+    translate(pos.x, pos.y);
+    //rotate(random(0.1));
+    rect(0, 0, pos.size, pos.size);
+
+    // label
+    textSize(pos.size/2.5);
+    fill(#000000);
+    text(str(estimated_cost), 2, pos.size/3);
+    
+    // show progress circle
+    if (is_started()){
+      fill(#44aa00);
+      Progress p = new Progress(new Position(pos.size/2, ceil(pos.size/1.7), pos.size/2));
+      p.percent = percent_done();
+      p.draw();
+    }
+    popMatrix();
+  }
 }
 
 class Story extends Activity {
