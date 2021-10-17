@@ -30,14 +30,7 @@ class Backlog {
      return total;
   }
   
-  int velocity(){
-     int total = 0;
-     for (Activity item: done_items()){
-       total += item.estimated_cost;
-     }
-     return total;
-  }
-  
+
   void add(Activity a){
     items.add(a);
   }
@@ -79,6 +72,7 @@ class Sprint extends Sprite{
   Team team;
   int sprint_number;
   int age;
+  int max_age;
   
   Sprint(){
     super();
@@ -90,15 +84,32 @@ class Sprint extends Sprite{
     team = t;
     sprint_number = 1;
     age = 0;
+    max_age=40;
   }
   
+  void reset(){
+    sprint_number++;
+    age = 0;
+    sprint.backlog.items.clear();
+  }
+
   boolean is_finished(){
-     return (backlog.todo_items().size() == 0) && (backlog.doing_items().size() == 0); 
+     return (age > max_age) || 
+            ( (backlog.todo_items().size() == 0) && (backlog.doing_items().size() == 0) ); 
+  }
+  
+  int velocity(){
+     int total = 0;
+     for (Activity item: backlog.done_items()){
+       total += item.estimated_cost;
+     }
+     return total;
   }
   
   void print_summary(){
     println("Sprint "+sprint_number);
     println("  total time: "+age+" ticks");
+    if (age > max_age){ println("   * sprint ended with unfinished work"); }
     println("  tasks done: "+backlog.done_items().size()+"/"+backlog.size());
     println("    estimate: "+backlog.estimated_cost()+ " story points");
     // println("    velocity: "+backlog.velocity()+ " story points");
