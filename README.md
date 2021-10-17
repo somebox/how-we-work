@@ -1,15 +1,35 @@
 # how-we-work
 
-A simulation that aims to show visually how software teams, autonomously and as part of a larger org, and the effects of planning, legacy, knowledge sharing, and communication can affect delivery.
+A simulation that aims to show visually how software teams work, autonomously and as part of a larger org, and the effects of planning, legacy, knowledge sharing, and communication can affect delivery.
 
-<img width="523" alt="Screenshot 2021-10-13 at 14 05 35" src="https://user-images.githubusercontent.com/7750/137129098-7e1c99ff-df04-42bc-acb7-46b3f5cb1c5d.png">
+<img width="800" alt="Screenshot 2021-10-18 at 00 37 06" src="https://user-images.githubusercontent.com/7750/137647491-5b4f0ba8-4a95-4511-85df-d50ca3a867c5.png">
 
-This project was created to create some short animations, to be included in an overall talk about how we work.
+This project was created to create some short animations, to be included in an overall talk about how we work at TX Conference 2021 in Zurich.
 
 ## Dev Environment
 
-All code is in [Processing](https://processing.org) v4 beta, which can output video files from the animations directly when needed.
+All code is in [Processing](https://processing.org) v4 beta, with an interactive UI to adjust parameters and scenes. 
+
 To run the project, `git clone`, and open the file `team_simulation.pde` in the editor environment. Processing is basically Java, but using supplied patterns like graphics primitives, setup/draw loop, and helpful structures like ArrayList, 1st-class color values, Vectors, etc).
+
+TODO Ideas: 
+- output video files from the animations directly when needed.
+- track history of a teams sprint outcomes, show progress on a graph
+- introduce a mini-calendar that shows how team time is taken up
+- add meeings
+- add pairing on code
+- add multiple teams and dependencies
+- add communication between teams as a something that takes work
+- add experience and developer experience as variables that affect speed
+- add technical debt
+- add extra big backlogs and cognitive load
+- add complexity of tasks (high complexity makes things harder)
+- add costs in real money and totals for teams and tasks
+- add a festival ritual after 6-7 sprints
+- add outside interference (group projects, unplanned work)
+- add quality issues like bugs, outages
+- add moving people between teams
+
 
 ## Examined are some scenarios:
 
