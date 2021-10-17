@@ -13,22 +13,22 @@ All code is in [Processing](https://processing.org) v4 beta, with an interactive
 To run the project, `git clone`, and open the file `team_simulation.pde` in the editor environment. Processing is basically Java, but using supplied patterns like graphics primitives, setup/draw loop, and helpful structures like ArrayList, 1st-class color values, Vectors, etc).
 
 TODO Ideas: 
-- output video files from the animations directly when needed.
-- track history of a teams sprint outcomes, show progress on a graph
-- introduce a mini-calendar that shows how team time is taken up
-- add meeings
-- add pairing on code
-- add multiple teams and dependencies
-- add communication between teams as a something that takes work
-- add experience and developer experience as variables that affect speed
-- add technical debt
-- add extra big backlogs and cognitive load
-- add complexity of tasks (high complexity makes things harder)
-- add costs in real money and totals for teams and tasks
-- add a festival ritual after 6-7 sprints
-- add outside interference (group projects, unplanned work)
-- add quality issues like bugs, outages
-- add moving people between teams
+- [ ] output video files from the animations directly when needed.
+- [ ] track history of a teams sprint outcomes, show progress on a graph
+- [ ] introduce a mini-calendar that shows how team time is taken up
+- [ ] meetings and the interruption of flow, standups, plannings, retros
+- [ ] pairing on code, how increased understanding and quality at a small cost to time
+- [ ] show multiple teams and dependencies between them
+- [ ] communication lines between people as a something that takes work
+- [ ] experience and developer experience as variables that affect speed
+- [ ] technical debt levels and effect on speed
+- [ ] extra big backlogs and cognitive load
+- [ ] complexity of tasks (high complexity makes things harder)
+- [ ] costs in real money and totals for teams and tasks
+- [ ] a festival ritual after 6-7 sprints
+- [ ] outside interference (group projects, unplanned work)
+- [ ] quality issues like bugs, outages
+- [ ] moving people between teams and onboarding time
 
 
 ## Examined are some scenarios:
