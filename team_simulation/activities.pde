@@ -51,6 +51,10 @@ class Activity extends Sprite {
   void tick(){
      age++; 
   }
+  
+  int total_cost(){
+    return _total_cost;
+  }
  
   void do_work(Person p, int work_points){
     _total_cost += work_points;

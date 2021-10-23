@@ -30,7 +30,14 @@ class Backlog {
      return total;
   }
   
-
+  int velocity(){
+     int t = 0;
+     for (Activity item: done_items()){
+       t += item.total_cost();
+     }
+     return t;
+  }
+  
   void add(Activity a){
     items.add(a);
   }
@@ -63,9 +70,30 @@ class Backlog {
   ArrayList<Activity> done_items(){
     return find_items(State.DONE);
   }
+  
+  boolean is_done(){
+    return((todo_items().size() == 0) && (doing_items().size() == 0));
+  }
 
 }
 
+class SprintLog {
+  int number;  // sprint number
+  int velocity;
+  int total_time;
+  int estimated_points;
+  int number_tasks;
+  int team_size;
+  
+  SprintLog(Sprint sprint){
+    number = sprint.sprint_number;
+    team_size = sprint.team.members.size();
+    velocity = sprint.backlog.velocity();
+    total_time = sprint.backlog.age;
+    estimated_points = sprint.backlog.estimated_cost();
+    number_tasks = sprint.backlog.items.size();
+  }
+}
 
 class Sprint extends Sprite{
   Backlog backlog;
@@ -73,6 +101,7 @@ class Sprint extends Sprite{
   int sprint_number;
   int age;
   int max_age;
+  ArrayList<SprintLog> history = new ArrayList<SprintLog>();
   
   Sprint(){
     super();
@@ -87,15 +116,20 @@ class Sprint extends Sprite{
     max_age=40;
   }
   
-  void reset(){
+  void finish(){
+    sprint.print_summary();  
+    history.add(new SprintLog(sprint));
     sprint_number++;
     age = 0;
     sprint.backlog.items.clear();
   }
 
+  SprintLog last_log(){
+     return history.get(history.size()-1); 
+  }
+
   boolean is_finished(){
-     return (age > max_age) || 
-            ( (backlog.todo_items().size() == 0) && (backlog.doing_items().size() == 0) ); 
+     return (age > max_age) || backlog.is_done(); 
   }
   
   int velocity(){

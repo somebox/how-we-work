@@ -1,29 +1,39 @@
 
-class Person extends Sprite {
+class Person extends Animation {
   int skill_level = 0;       // 0-10, with 0 being unable to do tasks, 1=junior, 3-5=typical, 6=senior, 8=expert, 10=principal
   int _status = 0;           // 0 = idle, 1=active, 2=blocked'
   int _blocked_ticks = 0;
   Activity current_activity;
-    
+  String status_animations[] = {"person/person-idle", "person/person-typing", "person/person-talking"};
+  
   Person(){
     super();
+    set_image_sequence();
   }
   
   Person(Position p){
-    super();
+    this();
     set_position(p);
   }
-  
+    
   String title(){
     return "employee";
   }
   
+  void tick(){
+
+  }
+  
+  void set_image_sequence(){
+    image_sequence = image_library.get(status_animations[_status]);
+  }
+  
   void work_on(Activity activity){
     current_activity = activity;
-    _status = 1;
+    set_active();
     activity.do_work(this, 1);
     if (activity.is_finished()){
-      _status = 0;
+      set_idle();
       current_activity = null;
       println(title() + " finished "+activity.summary());
     }
@@ -40,16 +50,24 @@ class Person extends Sprite {
     }
   }
   
+  void set_idle(){
+    _status = 0;
+    set_image_sequence();
+  }
   boolean is_idle(){
     return (_status == 0);
   }
-  void set_active(){ _status = 1; }
+  void set_active(){ 
+    _status = 1;
+    set_image_sequence();
+  }
   boolean is_active(){
     return (_status == 1);
   }
   void set_blocked(){
     _blocked_ticks = 0;
     _status = 2; 
+    set_image_sequence();
   }
   boolean is_blocked(){
     return (_status == 2);
@@ -64,8 +82,8 @@ class Person extends Sprite {
   }
 
   void draw(){
-    fill(status_color());
-    circle(pos.x, pos.y, pos.size); 
+    frame = (frame) % image_sequence.frame_count;
+    super.draw();
     if (current_activity != null){
       fill(#ffffff);
       text(current_activity._total_cost, pos.x, pos.y+pos.size);
@@ -95,7 +113,6 @@ class Team extends Sprite {
   }
     
   void draw(){
-    int spacing=10;
     pushMatrix();
     translate(pos.x, pos.y);
     for (Person p : team.members){
