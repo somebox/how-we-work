@@ -8,7 +8,6 @@ Position team_loc;
 
 int team_size = 4;
 int speed = 10;
-int backlog_size = 12;
 int t=0;
 int ticks=0;
 boolean paused = true;
@@ -81,16 +80,18 @@ void draw() {
   if (sprint.is_finished()) {
     sprint.finish();
     team_chart.push("velocity", sprint.last_log().velocity);
+    debt_chart.push("tech_debt", sprint.last_log().tech_debt);
     new_sprint();
     //cp5.getController("Start").setCaptionLabel("Next Sprint");
   }
 }
 
-void new_sprint() {  
-  for (int i=0; i < backlog_size; i++) {
+void new_sprint() {
+  while (sprint.estimated_cost() < sprint.velocity()){
     Task task = new Task(story_points(ceil(random(5))), 1);
     task.specify();
     sprint.backlog.add(task);
+    //println("added to sprint "+sprint.estimated_cost()+" < "+sprint.velocity());
   }
   cp5.getController("sp_number").setStringValue("Sprint "+sprint.sprint_number);
 }

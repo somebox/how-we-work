@@ -1,6 +1,7 @@
 int ui_top = 20;
 int ui_padding = 20;
 Chart team_chart;
+Chart debt_chart;
 
 void setup_ui(){
   cp5 = new ControlP5(this);
@@ -67,6 +68,33 @@ void setup_ui(){
   ui_style("performance", uifont, 0x000000);
   team_chart.addDataSet("velocity");
   team_chart.setData("velocity", new float[20]);
+  
+  
+    // add a vertical slider
+  cp5.addSlider("debt_slider")
+     .setPosition(750, ui_top)
+     .setSize(250,35)
+     .setRange(0,100)
+     .setValue(10)
+     .setLabel("Tech Debt")
+     .setLabelVisible(true)
+     .setDecimalPrecision(1)
+     .setColorLabel(0)     
+     ;
+  ui_style("debt_slider", uifont, 0x000000);
+  
+  debt_chart = cp5.addChart("tech_debt")
+    .setPosition(width-300-20-ui_padding, ui_top+220)
+    .setSize(300, 100)
+    .setRange(0, 160)
+    .setView(Chart.LINE) // use Chart.LINE, Chart.PIE, Chart.AREA, Chart.BAR_CENTERED
+    .setStrokeWeight(2)
+    .setColorCaptionLabel(color(40))
+    ;
+  ui_style("tech_debt", uifont, 0x000000);
+  debt_chart.addDataSet("tech_debt");
+  debt_chart.setData("tech_debt", new float[20]);
+ 
 }
 
 void speed_slider(int v){
@@ -74,6 +102,11 @@ void speed_slider(int v){
   v = ceil(max+1-v);
   println("set speed = "+v);
   speed  = v;
+}
+
+void debt_slider(int v){
+  println("set tech debt = "+v);
+  sprint.tech_debt = v;
 }
 
 void ui_style(String name, ControlFont font, color c){

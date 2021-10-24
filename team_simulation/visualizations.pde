@@ -13,7 +13,7 @@ class ImageSequence {
     images = new PImage[frame_count];
     for (int i = 0; i < frame_count; i++) {   
       String filename = base_name + "-" + nf(i, 2) + ".png";
-      println("loading "+filename);
+      //println("loading "+filename);
       images[i] = loadImage(filename);
     }
   }
@@ -128,7 +128,6 @@ class Animation extends Sprite {
   
   void random_frame(){
     frame = ceil(random(image_sequence.frame_count));
-    println(frame);
   }
 
   void draw() {

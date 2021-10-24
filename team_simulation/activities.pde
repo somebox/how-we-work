@@ -10,8 +10,8 @@ static abstract class State {
 
 class Activity extends Sprite {
   int age;               // total number of ticks this task has been around
-  int estimated_cost;   // work points expected to finish this activity
-  int _total_cost;       // total effort it took to do this activity
+  float estimated_cost;   // work points expected to finish this activity
+  float _total_cost;       // total effort it took to do this activity
   int _state;            // internal state tracking
   color card_color;  
   int id;
@@ -52,11 +52,11 @@ class Activity extends Sprite {
      age++; 
   }
   
-  int total_cost(){
+  float total_cost(){
     return _total_cost;
   }
  
-  void do_work(Person p, int work_points){
+  void do_work(float work_points){
     _total_cost += work_points;
     if (_total_cost > estimated_cost){
       this.finish();

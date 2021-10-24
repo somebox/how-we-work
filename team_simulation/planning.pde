@@ -23,19 +23,19 @@ class Backlog {
   }
   
   int estimated_cost(){
-     int total = 0;
+     float total = 0;
      for (Activity item: items){
        total += item.estimated_cost;
      }
-     return total;
+     return ceil(total);
   }
   
   int velocity(){
-     int t = 0;
+     float t = 0;
      for (Activity item: done_items()){
        t += item.total_cost();
      }
-     return t;
+     return ceil(t);
   }
   
   void add(Activity a){
@@ -84,6 +84,7 @@ class SprintLog {
   int estimated_points;
   int number_tasks;
   int team_size;
+  int tech_debt;
   
   SprintLog(Sprint sprint){
     number = sprint.sprint_number;
@@ -92,6 +93,7 @@ class SprintLog {
     total_time = sprint.backlog.age;
     estimated_points = sprint.backlog.estimated_cost();
     number_tasks = sprint.backlog.items.size();
+    tech_debt = sprint.tech_debt;
   }
 }
 
@@ -100,6 +102,7 @@ class Sprint extends Sprite{
   Team team;
   int sprint_number;
   int age;
+  int tech_debt;
   int max_age;
   ArrayList<SprintLog> history = new ArrayList<SprintLog>();
   
@@ -108,12 +111,21 @@ class Sprint extends Sprite{
   }
   
   Sprint(Team t){
-    super();
+    this();
     backlog = new Backlog();
     team = t;
     sprint_number = 1;
     age = 0;
-    max_age=40;
+    tech_debt = 10;
+    max_age = 20;
+  }
+  
+  int velocity(){
+    if (history.size() > 0){
+      return last_log().velocity;
+    } else {
+      return team.members.size() * 10;
+    }
   }
   
   void finish(){
@@ -132,21 +144,25 @@ class Sprint extends Sprite{
      return (age > max_age) || backlog.is_done(); 
   }
   
-  int velocity(){
+  int estimated_cost(){
+    return backlog.estimated_cost();
+  }
+  
+  int done_cost(){
      int total = 0;
      for (Activity item: backlog.done_items()){
        total += item.estimated_cost;
      }
-     return total;
+     return ceil(total);
   }
   
   void print_summary(){
     println("Sprint "+sprint_number);
     println("  total time: "+age+" ticks");
     if (age > max_age){ println("   * sprint ended with unfinished work"); }
-    println("  tasks done: "+backlog.done_items().size()+"/"+backlog.size());
-    println("    estimate: "+backlog.estimated_cost()+ " story points");
-    // println("    velocity: "+backlog.velocity()+ " story points");
+    println("     tasks done: "+backlog.done_items().size()+"/"+backlog.size());
+    println(" points planned: "+estimated_cost()+ " story points");
+    println("    points done: "+backlog.velocity()+ " story points");
   }
   
   void tick(){
@@ -158,16 +174,15 @@ class Sprint extends Sprite{
       if (p.is_idle()){  // assign a new task
         Activity item = backlog.pull();
         if (item != null){
-          //println(p.title() + " is starting " + item.name() + " status " + item._state);
           item.start();          
-          p.work_on(item);
+          p.work_on(item, 0.5); // onboarding costs
         } else {
           //println("no items in backlog");
         }
       } else {
         Activity item = p.current_activity;
-        p.work(); // continue on currently assigned task
-        //println(p.title() + " working on " + item.name() + " " + ceil(item.percent_done()*100) + "% done"); 
+        float points = 1 + ((50 - tech_debt)/100.0);
+        p.work_on(item, points); // continue on currently assigned task
       }
     }
   }

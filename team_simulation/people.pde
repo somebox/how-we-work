@@ -28,27 +28,27 @@ class Person extends Animation {
     image_sequence = image_library.get(status_animations[_status]);
   }
   
-  void work_on(Activity activity){
+  void work_on(Activity activity, float points){
     current_activity = activity;
     set_active();
-    activity.do_work(this, 1);
+    activity.do_work(points);
     if (activity.is_finished()){
       set_idle();
       current_activity = null;
-      println(title() + " finished "+activity.summary());
+      //println(title() + " finished "+activity.summary());
     }
   }
   
-  void work(){
-    if (is_blocked()){
-      _blocked_ticks++;
-      return; 
-    }
+  //void work(){
+  //  if (is_blocked()){
+  //    _blocked_ticks++;
+  //    return; 
+  //  }
     
-    if (current_activity != null){      
-      work_on(current_activity);
-    }
-  }
+  //  if (current_activity != null){      
+  //    work_on(current_activity);
+  //  }
+  //}
   
   void set_idle(){
     _status = 0;
