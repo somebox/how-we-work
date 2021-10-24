@@ -6,7 +6,7 @@ Sprint sprint;
 Position sprint_loc;
 Position team_loc;
 
-int team_size = 4;
+int team_size = 6;
 int speed = 10;
 int t=0;
 int ticks=0;
@@ -58,7 +58,7 @@ void setup() {
   team = new Team();
   team.set_position(new Position(width/2-100, height/2, 100));
   sprint = new Sprint(team);
-  sprint.set_position(new Position(ui_padding+100, height/4, 80));
+  sprint.set_position(new Position(ui_padding+50, height/4, 80));
   for (int i=0; i<team_size; i++) {
     Person p = new Engineer(new Position(i*(140), 0, 100));
     p.scale = 1.0;

@@ -5,44 +5,46 @@ Chart debt_chart;
 
 void setup_ui(){
   cp5 = new ControlP5(this);
-  PFont pfont_b = createFont("Helvetica", 36, true);
-  PFont pfont_m = createFont("Helvetica", 20, true);
-  PFont pfont_ui = createFont("Menlo", 14, true);
-  ControlFont bigfont = new ControlFont(pfont_b);
-  ControlFont medfont = new ControlFont(pfont_m); 
-  ControlFont uifont = new ControlFont(pfont_ui); 
+  PFont pfont_big = createFont("Helvetica", 38, true);
+  PFont pfont_med = createFont("Helvetica", 26, true);
+  PFont pfont_ui_title = createFont("Menlo", 26, true);
+  PFont pfont_ui_data = createFont("Menlo", 14, true);
+  ControlFont big_text = new ControlFont(pfont_big);
+  ControlFont med_text = new ControlFont(pfont_med); 
+  ControlFont ui_label = new ControlFont(pfont_ui_title);
+  ControlFont ui_data  = new ControlFont(pfont_ui_data);
     
   cp5.addTextlabel("sp_number", "sn", ui_padding, ui_top)
-    .setFont(bigfont)
+    .setFont(big_text)
     .setColor(#000000)
     .setSize(200, 130);
     
   cp5.addButton("Start")
-    .setFont(uifont)
+    .setFont(ui_data)
     .setPosition(200, ui_top)
     .setSize(90, 35);
 
   cp5.addLabel("Story Points")
-    .setPosition(width - 200, ui_top)
+    .setPosition(width - 350, ui_top)
     .setColor(#000000)
     .setSize(200, 130);
-  ui_style("Story Points", medfont, 0x000000);
+  ui_style("Story Points", med_text, 0x000000);
   
-  cp5.addTextlabel("sp_label", "points", width-60, ui_top)
+  cp5.addTextlabel("sp_label", "points", width-120, ui_top)
     .setColor(#000000)
     .setSize(200, 130);
-  ui_style("sp_label", medfont, 0x000000);
+  ui_style("sp_label", med_text, 0x000000);
   
   cp5.addLabel("Elapsed Time")
-    .setPosition(width - 200, ui_top+ui_padding*2)
+    .setPosition(width - 350, ui_top+ui_padding*2)
     .setColor(#000000)
     .setSize(200, 130);
-  ui_style("Elapsed Time", medfont, 0x000000); 
+  ui_style("Elapsed Time", med_text, 0x000000); 
   
-  cp5.addTextlabel("sp_time", "time", width-60, ui_top+ui_padding*2)
+  cp5.addTextlabel("sp_time", "time", width-120, ui_top+ui_padding*2)
     .setColor(#000000)
     .setSize(200, 130);
-  ui_style("sp_time", medfont, 0x000000);
+  ui_style("sp_time", med_text, 0x000000);
   
   // add a vertical slider
   cp5.addSlider("speed_slider")
@@ -55,24 +57,25 @@ void setup_ui(){
      .setDecimalPrecision(1)
      .setColorLabel(0)     
      ;
-  ui_style("speed_slider", uifont, 0x000000);
+  ui_style("speed_slider", ui_label, 0x000000);
   
   team_chart = cp5.addChart("performance")
     .setPosition(width-300-20-ui_padding, ui_top+100)
     .setSize(300, 100)
     .setRange(0, 160)
+    .setLabel("Velocity")
     .setView(Chart.LINE) // use Chart.LINE, Chart.PIE, Chart.AREA, Chart.BAR_CENTERED
     .setStrokeWeight(2)
     .setColorCaptionLabel(color(40))
     ;
-  ui_style("performance", uifont, 0x000000);
+  ui_style("performance", ui_label, 0x000000);
   team_chart.addDataSet("velocity");
   team_chart.setData("velocity", new float[20]);
   
   
     // add a vertical slider
   cp5.addSlider("debt_slider")
-     .setPosition(750, ui_top)
+     .setPosition(850, ui_top)
      .setSize(250,35)
      .setRange(0,100)
      .setValue(10)
@@ -81,17 +84,18 @@ void setup_ui(){
      .setDecimalPrecision(1)
      .setColorLabel(0)     
      ;
-  ui_style("debt_slider", uifont, 0x000000);
+  ui_style("debt_slider", ui_label, 0x000000);
   
   debt_chart = cp5.addChart("tech_debt")
     .setPosition(width-300-20-ui_padding, ui_top+220)
     .setSize(300, 100)
     .setRange(0, 160)
+    .setLabel("Complexity")
     .setView(Chart.LINE) // use Chart.LINE, Chart.PIE, Chart.AREA, Chart.BAR_CENTERED
     .setStrokeWeight(2)
     .setColorCaptionLabel(color(40))
     ;
-  ui_style("tech_debt", uifont, 0x000000);
+  ui_style("tech_debt", ui_label, 0x000000);
   debt_chart.addDataSet("tech_debt");
   debt_chart.setData("tech_debt", new float[20]);
  
@@ -106,7 +110,7 @@ void speed_slider(int v){
 
 void debt_slider(int v){
   println("set tech debt = "+v);
-  sprint.tech_debt = v;
+  if (sprint != null) { sprint.tech_debt = v; }
 }
 
 void ui_style(String name, ControlFont font, color c){
