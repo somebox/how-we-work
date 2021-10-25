@@ -30,7 +30,7 @@ void draw() {
   background(#ffffff);
   cal.draw();
   cal.tick(t++);
-  if (random(10) > 9) add_random_event(t);
+  if (random(10) > 8) add_random_event(t);
   if (random(100) > 98) delete_random_event();
   cp5.getController("sp_number").setStringValue("Day "+cal.current_day);
 }
