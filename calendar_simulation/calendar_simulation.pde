@@ -12,10 +12,12 @@ week is five days, every day is 20 time units long (with each unit being approxi
 
 */
 
-boolean RECORD = false;
+static final boolean RECORD = false;
+static final int TIME_UNITS_PER_DAY = 20;
+static final int VISIBLE_DAYS = 12;
+
 VideoExport videoExport;  // external lib 
 Calendar cal;
-static final int TIME_UNITS_PER_DAY = 20;
 int t = 0;       // tracks the ticks every frame
 int speed = 1;  // time units per tick
 
@@ -26,8 +28,8 @@ void setup() {
   videoExport.setFrameRate(30); 
   if (RECORD) videoExport.startMovie();
   setup_ui();
-  cal = new Calendar(width/6,height/3,(width/5)*4,(height/6)*5);
-  cal.add_days(14);
+  cal = new Calendar(width/10,height/6,(width/10)*8,(height/6)*4, VISIBLE_DAYS);
+  cal.add_days(VISIBLE_DAYS+2);
 }
 
 void draw() {
@@ -35,7 +37,7 @@ void draw() {
   cal.draw();
   cal.tick(t++);
   if (random(10) > 8) add_random_event(t);
-  if (random(100) > 98) delete_random_event();
+  if (random(100) > 99) delete_random_event();
   cp5.getController("sp_number").setStringValue("Day "+cal.current_day);
   if (RECORD) videoExport.saveFrame();
 }
@@ -48,10 +50,10 @@ void keyPressed() {
 }      
 
 void add_random_event(int t){
-  int duration = int(random(6)<5 ? random(2)*2+1 : random(3)*2+2);  // mostly short one, a few long ones
+  int duration = int(random(6)<5 ? random(3)+1 : random(3)*2+2);  // mostly short one, a few long ones
   int start = int(random(TIME_UNITS_PER_DAY-duration));
   Event e = new Event(start, duration, int(random(3)));
-  int proposed_day = 1+int(random(6));
+  int proposed_day = 1+int(random(VISIBLE_DAYS/2));
   println("adding: "+proposed_day);
   e.summary();
   while (proposed_day < 12){
@@ -114,12 +116,19 @@ class Event implements Comparable<Event> {
   }
   
   void draw(int w, int h){
+    int pad = 10;
+    int hour_height = (h-pad*2)/TIME_UNITS_PER_DAY;
+    int y = pad+hour_height*start_time;
+    
+    // draw the box
     fill(prio_color());
-    int y = 10+(h-20)/TIME_UNITS_PER_DAY*start_time;
-    rect(10, y, w-20, (h-20)/TIME_UNITS_PER_DAY*(duration));
-    textSize(14);
-    fill(#444444);
-    text(start_time+"-"+end_time(), 20, y+20);
+    rect(pad, y, w-pad*2, hour_height*(duration));
+    
+    // Draw text of start/stop times
+    //textSize(14);
+    //fill(#444444);
+    //text(start_time+"-"+end_time(), pad+pad/2, y+pad+pad/2);
+    
     age++;
   }
   
@@ -205,8 +214,8 @@ class Calendar {
   int max_day;       // the highest day number used so far
   int x,y,w,h;
   
-  Calendar(int x, int y, int w, int h){
-    visible_days = 8;
+  Calendar(int x, int y, int w, int h, int visible_days){
+    this.visible_days = visible_days;
     month_len = 30;
     current_day = 1;
     current_time = 0;
