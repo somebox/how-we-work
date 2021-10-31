@@ -1,6 +1,6 @@
 import java.util.Collections;
 import controlP5.*;
-
+import com.hamoid.*;  // https://github.com/hamoid/video_export_processing
 /* 
 
 CALENDAR SIMULATOR
@@ -12,17 +12,21 @@ week is five days, every day is 20 time units long (with each unit being approxi
 
 */
 
-
+boolean RECORD = false;
+VideoExport videoExport;  // external lib 
 Calendar cal;
 static final int TIME_UNITS_PER_DAY = 20;
 int t = 0;       // tracks the ticks every frame
 int speed = 1;  // time units per tick
 
 void setup() {
-  size(1920, 1080);
+  size(1920, 500);
   frameRate(30);
+  videoExport = new VideoExport(this, "calendar.mp4");
+  videoExport.setFrameRate(30); 
+  if (RECORD) videoExport.startMovie();
   setup_ui();
-  cal = new Calendar(300,300,500,1200);
+  cal = new Calendar(width/6,height/3,(width/5)*4,(height/6)*5);
   cal.add_days(14);
 }
 
@@ -33,7 +37,15 @@ void draw() {
   if (random(10) > 8) add_random_event(t);
   if (random(100) > 98) delete_random_event();
   cp5.getController("sp_number").setStringValue("Day "+cal.current_day);
+  if (RECORD) videoExport.saveFrame();
 }
+
+void keyPressed() {
+  if (key == 'q') {
+    if (RECORD) videoExport.endMovie();
+    exit();
+  }
+}      
 
 void add_random_event(int t){
   int duration = int(random(6)<5 ? random(2)*2+1 : random(3)*2+2);  // mostly short one, a few long ones
@@ -191,19 +203,19 @@ class Calendar {
   int current_time;  // 20 units per day
   int month_day;     // the virutal day-of-the-month, resets at month_len
   int max_day;       // the highest day number used so far
-  int h,w,x,y;
+  int x,y,w,h;
   
-  Calendar(int x, int y, int h, int w){
+  Calendar(int x, int y, int w, int h){
     visible_days = 8;
     month_len = 30;
     current_day = 1;
     current_time = 0;
     month_day = 1;
     max_day = 1;
-    this.h = h;
-    this.w = w;
     this.x = x;
     this.y = y;
+    this.w = w;
+    this.h = h;
   }
   
   Workday get_day(int day_id){
