@@ -2,9 +2,15 @@
 
 A simulation that aims to show visually how software teams work, autonomously and as part of a larger org, and the effects of planning, legacy, knowledge sharing, and communication can affect delivery.
 
-<img width="800" alt="Screenshot 2021-10-18 at 00 37 06" src="https://user-images.githubusercontent.com/7750/137647491-5b4f0ba8-4a95-4511-85df-d50ca3a867c5.png">
+![Team simulation gif](https://user-images.githubusercontent.com/7750/140018243-5e4c9298-4e7c-4002-987c-699c9593b19d.gif)
+
+![Calendar simulation gif](https://user-images.githubusercontent.com/7750/140018209-037f7aa9-5417-45b8-ac87-831966e9a60c.gif)
 
 This project was created to create some short animations, to be included in an overall talk about how we work at TX Conference 2021 in Zurich.
+
+## The Talk
+
+(links to be posted later)
 
 ## Dev Environment
 
@@ -13,20 +19,20 @@ All code is in [Processing](https://processing.org) v4 beta, with an interactive
 To run the project, `git clone`, and open the file `team_simulation.pde` in the editor environment. Processing is basically Java, but using supplied patterns like graphics primitives, setup/draw loop, and helpful structures like ArrayList, 1st-class color values, Vectors, etc).
 
 TODO Ideas: 
-- [ ] output video files from the animations directly when needed.
-- [ ] track history of a teams sprint outcomes, show progress on a graph
+- [x] output video files from the animations directly when needed.
+- [x] track history of a teams sprint outcomes, show progress on a graph
 - [ ] introduce a mini-calendar that shows how team time is taken up
 - [ ] meetings and the interruption of flow, standups, plannings, retros
 - [ ] pairing on code, how increased understanding and quality at a small cost to time
 - [ ] show multiple teams and dependencies between them
 - [ ] communication lines between people as a something that takes work
 - [ ] experience and developer experience as variables that affect speed
-- [ ] technical debt levels and effect on speed
+- [x] technical debt levels and effect on speed
 - [ ] extra big backlogs and cognitive load
-- [ ] complexity of tasks (high complexity makes things harder)
+- [x] complexity of tasks (high complexity makes things harder)
 - [ ] costs in real money and totals for teams and tasks
-- [ ] a festival ritual after 6-7 sprints
-- [ ] outside interference (group projects, unplanned work)
+- [ ] model a company planning ritual after 6-7 sprints
+- [x] outside interference (group projects, unplanned work)
 - [ ] quality issues like bugs, outages
 - [ ] moving people between teams and onboarding time
 
@@ -87,4 +93,16 @@ Avoid the "big rewrite", look to contain and control all parts of the platform a
 The transparency of the org, what a good "festival" looks like and the impact, how to move away from reporting and assigning tasks, and how autonomy and purpose drive performance. What modern Product Management techniques teach us about teamwork. How "Culture Eats Strategy for Breakfast" and how this relates to software development in a modern way (review, inner-source, standards over architecture)
 
 ## Inspirations
-(books and video listed here TBD)
+- Book: [The Goal](https://www.amazon.com/Goal-Process-Ongoing-Improvement/dp/0884271951) (1984)
+- Book: [The Phoenix Project](https://itrevolution.com/the-phoenix-project/) (2013)
+- Book: [Brick By Brick - How Lego Changed the Rules of Innovation](https://www.amazon.com/Brick-Rewrote-Innovation-Conquered-Industry/dp/0307951618) (2013)
+- Book: [Team Topologies](https://teamtopologies.com/) (2019)
+- Article: [Pragmatic Engineer - How Big Tech Runs Tech Projects and the Curious Absence of Scrum](https://newsletter.pragmaticengineer.com/p/project-management-in-tech?utm_source=pocket_mylist)
+- The [Theory of Constraints](https://en.wikipedia.org/wiki/Theory_of_constraints)
+- [Managing by Outcomes](https://www.producttalk.org/2019/10/managing-outcomes/) (product management talk)
+- Book: [A Practical Approach to Large-Scale Agile Development](https://www.amazon.com/Practical-Approach-Large-Scale-Agile-Development/dp/0321821726)
+- Book Synopsis: [An Elegant Puzzle: Systems of Engineering](https://medium.com/@sjonany/book-an-elegant-puzzle-systems-of-engineering-management-will-larson-f729447a43c)
+- Talk: [Software Myths Busted](https://www.youtube.com/watch?v=GF_jiO73L7o)
+- Talk: [If Agile is good, why are our Product so bad?](https://www.youtube.com/watch?v=2JNXx8VdbAE)
+- Talk: [Why Scaling Agile Doesn't Work](https://www.youtube.com/watch?v=2zYxWEZ0gYg)
+- 
