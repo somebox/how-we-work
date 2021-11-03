@@ -14,7 +14,7 @@ week is five days, every day is 20 time units long (with each unit being approxi
 
 static final boolean RECORD = false;
 static final int TIME_UNITS_PER_DAY = 20;
-static final int VISIBLE_DAYS = 12;
+static final int VISIBLE_DAYS = 9;
 
 VideoExport videoExport;  // external lib 
 Calendar cal;
@@ -22,7 +22,7 @@ int t = 0;       // tracks the ticks every frame
 int speed = 1;  // time units per tick
 
 void setup() {
-  size(1920, 500);
+  size(900, 350);
   frameRate(30);
   videoExport = new VideoExport(this, "calendar.mp4");
   videoExport.setFrameRate(30); 
@@ -39,7 +39,7 @@ void draw() {
   if (random(10) > 8) add_random_event(t);
   if (random(100) > 99) delete_random_event();
   cp5.getController("sp_number").setStringValue("Day "+cal.current_day);
-  if (RECORD) videoExport.saveFrame();
+  if (RECORD && (t % 3 == 0)) videoExport.saveFrame();
 }
 
 void keyPressed() {

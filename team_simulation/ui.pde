@@ -5,9 +5,9 @@ Chart debt_chart;
 
 void setup_ui(){
   cp5 = new ControlP5(this);
-  PFont pfont_big = createFont("Helvetica", 38, true);
-  PFont pfont_med = createFont("Helvetica", 26, true);
-  PFont pfont_ui_title = createFont("Menlo", 26, true);
+  PFont pfont_big = createFont("Helvetica", 32, true);
+  PFont pfont_med = createFont("Helvetica", 24, true);
+  PFont pfont_ui_title = createFont("Menlo", 18, true);
   PFont pfont_ui_data = createFont("Menlo", 14, true);
   ControlFont big_text = new ControlFont(pfont_big);
   ControlFont med_text = new ControlFont(pfont_med); 
@@ -21,7 +21,7 @@ void setup_ui(){
     
   cp5.addButton("Start")
     .setFont(ui_data)
-    .setPosition(200, ui_top)
+    .setPosition(180, ui_top)
     .setSize(90, 35);
 
   cp5.addLabel("Story Points")
@@ -45,11 +45,14 @@ void setup_ui(){
     .setColor(#000000)
     .setSize(200, 130);
   ui_style("sp_time", med_text, 0x000000);
+
+    
+  int slider_size = 20;
   
   // add a vertical slider
   cp5.addSlider("speed_slider")
-     .setPosition(400, ui_top)
-     .setSize(250,35)
+     .setPosition(width/10*4, ui_top)
+     .setSize(250,slider_size)
      .setRange(0,50)
      .setValue(10)
      .setLabel("Speed")
@@ -71,12 +74,11 @@ void setup_ui(){
   ui_style("performance", ui_label, 0x000000);
   team_chart.addDataSet("velocity");
   team_chart.setData("velocity", new float[20]);
-  
-  
+
     // add a vertical slider
   cp5.addSlider("debt_slider")
-     .setPosition(850, ui_top)
-     .setSize(250,35)
+     .setPosition(width/10*4, ui_top+slider_size*1.5)
+     .setSize(250,slider_size)
      .setRange(0,100)
      .setValue(10)
      .setLabel("Tech Debt")
@@ -85,6 +87,19 @@ void setup_ui(){
      .setColorLabel(0)     
      ;
   ui_style("debt_slider", ui_label, 0x000000);
+  
+    // add a vertical slider
+  cp5.addSlider("interruptions_slider")
+     .setPosition(width/10*4, ui_top+(slider_size*3))
+     .setSize(250,slider_size)
+     .setRange(0,100)
+     .setValue(10)
+     .setLabel("Interruptions")
+     .setLabelVisible(true)
+     .setDecimalPrecision(1)
+     .setColorLabel(0)     
+     ;
+  ui_style("interruptions_slider", ui_label, 0x000000);  
   
   debt_chart = cp5.addChart("tech_debt")
     .setPosition(width-300-20-ui_padding, ui_top+220)
@@ -106,6 +121,13 @@ void speed_slider(int v){
   v = ceil(max+1-v);
   println("set speed = "+v);
   speed  = v;
+}
+
+void interruptions_slider(int v){
+  float max = cp5.getController("interruptions_slider").getMax();
+  v = ceil(max+1-v);
+  println("set interruptions = "+v);
+  interruptions  = v;
 }
 
 void debt_slider(int v){

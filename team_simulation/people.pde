@@ -21,7 +21,9 @@ class Person extends Animation {
   }
   
   void tick(){
-
+    if (is_blocked()){
+      _blocked_ticks++;
+    }
   }
   
   void set_image_sequence(){

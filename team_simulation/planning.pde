@@ -122,7 +122,7 @@ class Sprint extends Sprite{
   
   int velocity(){
     if (history.size() > 0){
-      return last_log().velocity;
+      return last_log().velocity+1;
     } else {
       return team.members.size() * 10;
     }
@@ -133,6 +133,9 @@ class Sprint extends Sprite{
     history.add(new SprintLog(sprint));
     sprint_number++;
     age = 0;
+    for (Person p : team.members) {
+      p.set_idle();
+    }
     sprint.backlog.items.clear();
   }
 
@@ -179,7 +182,7 @@ class Sprint extends Sprite{
         } else {
           //println("no items in backlog");
         }
-      } else {
+      } else if (p.is_active()) {
         Activity item = p.current_activity;
         float points = 1 + ((50 - tech_debt)/100.0);
         p.work_on(item, points); // continue on currently assigned task

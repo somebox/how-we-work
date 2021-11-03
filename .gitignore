@@ -10,3 +10,5 @@ application.macosx
 out
 ffmpeg.txt
 *.mp4
+*.mov
+palette.png

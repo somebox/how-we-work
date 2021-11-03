@@ -1,13 +1,32 @@
 import controlP5.*;
+import com.hamoid.*;  // https://github.com/hamoid/video_export_processing
+/*
+
+A visual simulation of a team working with Scrum, that shows how the team will 
+gain velocity over time, and are impacted by technical debt and interruptions.
+
+Based on experience working with tech teams, the simulation is designed in a way that
+there is some small overhead associated with switching tasks, waiting on things,
+meeting and discussing, and preparing for the next sprint.
+
+This was done to help gain understanding about the interaction patterns teams
+experience and to share the observations with others.
+
+
+*/
+
 ControlP5 cp5;
+VideoExport videoExport;  // external lib 
+static final boolean RECORD = false;
 
 Team team;
 Sprint sprint;
 Position sprint_loc;
 Position team_loc;
 
-int team_size = 6;
+int team_size = 5;
 int speed = 10;
+int interruptions = 2;
 int t=0;
 int ticks=0;
 boolean paused = true;
@@ -25,7 +44,9 @@ void tick(int t) {
     for (Person p : team.members) {
       p.tick();
       if (p.is_blocked()) {
-        if (random(10)+3 < p._blocked_ticks) {
+        println("blocked person "+p+" for "+p._blocked_ticks+" ticks");
+        if (random(20)+2 < p._blocked_ticks) {
+          println("unblocked person "+p+" after "+p._blocked_ticks+" ticks");
           p.set_active();
           p.random_frame();
         }
@@ -33,10 +54,11 @@ void tick(int t) {
     }
 
     // randomly block someone
-    if (random(10) > 8) {
-      Person p = team.members.get(ceil(random(team.members.size()-1)));
+    if (random(100) > (interruptions)) {
+      Person p = team.members.get(floor(random(team.members.size())));
       if (p.is_active()) {
         p.set_blocked();
+        println("blocked person"+p);
         p.random_frame();
       }
     }
@@ -51,16 +73,19 @@ int story_points(int magnitude) {
 }
 
 void setup() {
-  size(1920, 1080);
+  size(1200, 800);
   frameRate(60);
+  videoExport = new VideoExport(this, "team.mp4");
+  videoExport.setFrameRate(30); 
+  if (RECORD) videoExport.startMovie();
   setup_ui();
   load_images();
   team = new Team();
-  team.set_position(new Position(width/2-100, height/2, 100));
+  team.set_position(new Position(width/5*2, (height/3)*2, 50));
   sprint = new Sprint(team);
-  sprint.set_position(new Position(ui_padding+50, height/4, 80));
+  sprint.set_position(new Position(width/20, height/10*3, 50));
   for (int i=0; i<team_size; i++) {
-    Person p = new Engineer(new Position(i*(140), 0, 100));
+    Person p = new Engineer(new Position(i*(140), 0, 50));
     p.scale = 1.0;
     team.add_person(p);
   }
@@ -84,7 +109,15 @@ void draw() {
     new_sprint();
     //cp5.getController("Start").setCaptionLabel("Next Sprint");
   }
+  if (RECORD && (t % 3 == 0)) videoExport.saveFrame();
 }
+
+void keyPressed() {
+  if (key == 'q') {
+    if (RECORD) videoExport.endMovie();
+    exit();
+  }
+}  
 
 void new_sprint() {
   while (sprint.estimated_cost() < sprint.velocity()){
