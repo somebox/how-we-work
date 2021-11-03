@@ -8,6 +8,8 @@ A simulation that aims to show visually how software teams work, autonomously an
 
 This project was created to create some short animations, to be included in an overall talk about how we work at TX Conference 2021 in Zurich.
 
+Code by [Jeremy Seitz](https://somebox.com/jeremy), illustrations by [Christina Haupt](https://www.instagram.com/chauptart/?hl=en)
+
 ## The Talk
 
 (links to be posted later)
