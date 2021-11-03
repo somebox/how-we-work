@@ -18,7 +18,7 @@ Code by [Jeremy Seitz](https://somebox.com/jeremy), illustrations by [Christina 
 
 All code is in [Processing](https://processing.org) v4 beta, with an interactive UI to adjust parameters and scenes. 
 
-To run the project, `git clone`, and open the file `team_simulation.pde` in the editor environment. Processing is basically Java, but using supplied patterns like graphics primitives, setup/draw loop, and helpful structures like ArrayList, 1st-class color values, Vectors, etc).
+To run the project, `git clone`, and open the file `team_simulation.pde` in the editor environment. Processing is basically Java, but using supplied patterns like graphics primitives, setup/draw loop, and helpful structures like ArrayList, 1st-class color values, Vectors, etc). The calendar simulation is separate, and is mostly visual (not much simulation going on, other than filling up work with meetings!).
 
 TODO Ideas: 
 - [x] output video files from the animations directly when needed.
