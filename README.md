@@ -14,53 +14,24 @@ Code by [Jeremy Seitz](https://somebox.com/jeremy), illustrations by [Christina 
 
 (links to be posted later)
 
-## Dev Environment
 
-All code is in [Processing](https://processing.org) v4 beta, with an interactive UI to adjust parameters and scenes. 
+## Examined are some scenarios, which the simulation and talk address:
 
-To run the project, `git clone`, and open the file `team_simulation.pde` in the editor environment. Processing is basically Java, but using supplied patterns like graphics primitives, setup/draw loop, and helpful structures like ArrayList, 1st-class color values, Vectors, etc). The calendar simulation is separate, and is mostly visual (not much simulation going on, other than filling up work with meetings!).
-
-TODO Ideas: 
-- [x] output video files from the animations directly when needed.
-- [x] track history of a teams sprint outcomes, show progress on a graph
-- [ ] introduce a mini-calendar that shows how team time is taken up
-- [ ] meetings and the interruption of flow, standups, plannings, retros
-- [ ] pairing on code, how increased understanding and quality at a small cost to time
-- [ ] show multiple teams and dependencies between them
-- [ ] communication lines between people as a something that takes work
-- [ ] experience and developer experience as variables that affect speed
-- [x] technical debt levels and effect on speed
-- [ ] extra big backlogs and cognitive load
-- [x] complexity of tasks (high complexity makes things harder)
-- [ ] costs in real money and totals for teams and tasks
-- [ ] model a company planning ritual after 6-7 sprints
-- [x] outside interference (group projects, unplanned work)
-- [ ] quality issues like bugs, outages
-- [ ] moving people between teams and onboarding time
-
-
-## Examined are some scenarios:
-
-### A single team
 - how availabilty, stability of the team, and planning affects work
 - Showing how faster iterations can lead to faster learning
 - Seeing how complexity in tasks (or the platform) can slow us down
 - Visualize how pairing and reviews don't reduce output
-- Show how external dependencies (on resources or changes) affect progres
+- Show how external dependencies (on resources or changes) affect flow
 - Show how interruptions affect progress
-
-### Multiple Teams
 - Show teams that have cycles aligned, vs independent and the impact here
 - Show overhead of comms and alignment
 - Show how outside, unplanned work can impact progress towards goals
-- show the calendar problem visually, how time fills up in "first available" fashing, why blocking time and having shared rituals help
+- Show the calendar problem visually, how time fills up in "first available" fashing, why blocking time and having shared rituals help
 
 ### A Whole Organization
-- Show 10 teams in progress, in different departments, separately aligning with stakeholders; vs. festival planning and reduction of meetings
-- Show the cumulative effect of legacy or changing goals on a software org, how the whole system is affected
-- Show bottlenecks that slow down everyone (ex: approvals, under-provisioned design, waiting for research, "big" company projects that interrupt)
-
-
+- many teams in progress, in different departments, separately aligning with stakeholders; vs. full-scale planning and reduction of meetings
+- the cumulative effect of legacy or changing goals on a software org, how the whole system is affected
+- bottlenecks that slow down everyone (ex: approvals, under-provisioned design, waiting for research, "big" company projects that interrupt)
 
 ## **Visualizations/Examples**
 
@@ -107,4 +78,31 @@ The transparency of the org, what a good "festival" looks like and the impact, h
 - Talk: [Software Myths Busted](https://www.youtube.com/watch?v=GF_jiO73L7o)
 - Talk: [If Agile is good, why are our Product so bad?](https://www.youtube.com/watch?v=2JNXx8VdbAE)
 - Talk: [Why Scaling Agile Doesn't Work](https://www.youtube.com/watch?v=2zYxWEZ0gYg)
-- 
+
+
+
+## Dev Environment - Simulations
+
+All code is in [Processing](https://processing.org) v4 beta, with an interactive UI to adjust parameters and scenes. 
+** PULL REQUESTS WELCOME **
+
+To run the project, `git clone`, and open the file `team_simulation.pde` in the editor environment. Processing is basically Java, but using supplied patterns like graphics primitives, setup/draw loop, and helpful structures like ArrayList, 1st-class color values, Vectors, etc). The calendar simulation is separate, and is mostly visual (not much simulation going on, other than filling up work with meetings!).
+
+TODO Ideas: 
+- [x] output video files from the animations directly when needed.
+- [x] track history of a teams sprint outcomes, show progress on a graph
+- [ ] introduce a mini-calendar that shows how team time is taken up
+- [ ] meetings and the interruption of flow, standups, plannings, retros
+- [ ] pairing on code, how increased understanding and quality at a small cost to time
+- [ ] show multiple teams and dependencies between them
+- [ ] communication lines between people as a something that takes work
+- [ ] experience and developer experience as variables that affect speed
+- [x] technical debt levels and effect on speed
+- [ ] extra big backlogs and cognitive load
+- [x] complexity of tasks (high complexity makes things harder)
+- [ ] costs in real money and totals for teams and tasks
+- [ ] model a company planning ritual after 6-7 sprints
+- [x] outside interference (group projects, unplanned work)
+- [ ] quality issues like bugs, outages
+- [ ] moving people between teams and onboarding time
+
